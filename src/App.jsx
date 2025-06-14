@@ -36,7 +36,7 @@ function App() {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/form")
+    axios.get(`${import.meta.env.VITE_BACKENDURL}/api/form`)
       .then(res => {
         const validFields = res.data.map(f => decryptField(f.data, f.iv)).filter(Boolean);
         setFields(validFields);
@@ -60,7 +60,7 @@ function App() {
     if (currentIndex + 1 < fields.length) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      axios.post("http://localhost:5000/api/submit", formData)
+      axios.post(`${import.meta.env.VITE_BACKENDURL}/api/submit`, formData)
         .then(() => { alert("Form submitted successfully!");
          setFormData({});          
          setCurrentIndex(0);
